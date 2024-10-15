@@ -11,6 +11,9 @@ module.exports = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      boxShadow: {
+        "job-type": "0px 0px 0px 1px rgba(0, 0, 0, 0.6) inset"
+      }
     },
   },
   plugins: [],
