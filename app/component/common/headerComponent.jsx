@@ -1,6 +1,7 @@
 import React from "react";
 import SearchIcon from "../icons/searchIcon";
 import NavbarComponent from "./navbarComponent";
+import Link from "next/link";
 
 const HeaderComponent = () => {
   return (
@@ -25,7 +26,7 @@ const HeaderComponent = () => {
               </div>
             </div>
 
-            <a href="#" className="hover:underline">
+            <a href="/signin" className="hover:underline">
               Sign In
             </a>
             <a href="#" className="hover:underline">

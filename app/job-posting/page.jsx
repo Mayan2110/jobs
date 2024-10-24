@@ -1,4 +1,4 @@
-import FooterComponent from "../component/common/footerComponent";
+
 import UiuxComponent from "../component/common/uiuxComponent";
 export default function JobPosting() {
   return (
@@ -157,7 +157,7 @@ export default function JobPosting() {
             </div>
           </div>
         </div>
-        <FooterComponent/>
+     
       </main>
     </div>
   );

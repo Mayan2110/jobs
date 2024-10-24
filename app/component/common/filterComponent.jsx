@@ -1,6 +1,6 @@
 import React from "react";
 
-const FilterComponent = () => {
+const FilterComponent = ({ handleChange }) => {
   return (
     <>
       <div className="w-1/4 p-4 bg-white rounded-lg shadow-md h-[600px]">
@@ -9,24 +9,51 @@ const FilterComponent = () => {
           <label className="block text-gray-700 font-semibold mb-2">
             Job Type
           </label>
-          <select className="w-full p-2 border border-gray-300 rounded">
-            <option>Full Time</option>
+          <select
+            className="w-full p-2 border border-gray-300 rounded"
+            name="JobType"
+            onChange={(e) =>
+              handleChange({ field: "jobType", value: e.target.value })
+            }
+          >
+            <option value="">Select Job type</option>
+            <option value="Full-time">Full-Time</option>
+            <option value="part-time">part-time</option>
+            <option value=" Freelance">Freelance</option>
           </select>
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 font-semibold mb-2">
             Location
           </label>
-          <select className="w-full p-2 border border-gray-300 rounded">
-            <option>Location</option>
+          <select
+            className="w-full p-2 border border-gray-300 rounded"
+            name="Location"
+            onChange={(e) =>
+              handleChange({ field: "location", value: e.target.value })
+            }
+          >
+            <option value="">Select Location</option>
+            <option value="Ahmedabad">Aemadabad</option>
+            <option value="Baroda">Baroda</option>
+            <option value="Surat">Surat</option>
           </select>
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 font-semibold mb-2">
             Salary
           </label>
-          <select className="w-full p-2 border border-gray-300 rounded">
-            <option>Select Range</option>
+          <select
+            className="w-full p-2 border border-gray-300 rounded"
+            name="Salary"
+            onChange={(e) =>
+              handleChange({ field: "salary", value: e.target.value })
+            }
+          >
+            <option value="">Select Range</option>
+            <option value="10-20">10k - 20k</option>
+            <option value="30-70">30k - 70k</option>
+            <option value="12-25">12k - 25k</option>
           </select>
         </div>
       </div>
@@ -34,3 +61,4 @@ const FilterComponent = () => {
   );
 };
 export default FilterComponent;
+
