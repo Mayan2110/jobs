@@ -1,39 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-const JobDetailComponent = () => {
+const JobDetailComponent = ({ jobDetails }) => {
+  console.log("jobDetails: ", jobDetails);
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    // resume: null,
+    name: " ",
+    email: " ",
+    phone: " ",
   });
 
-  const [job, setJob] = useState(null); // To store the job details
-  const [loading, setLoading] = useState(true); // To handle loading state
+  const [job, setJob] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  // Validation error messages
   const [errors, setErrors] = useState({
     name: "",
     email: "",
     phone: "",
   });
 
-  useEffect(() => {
-    // Fetch a single job from API (assuming a specific job ID or endpoint)
-    fetch("https://670d0d07073307b4ee421ac5.mockapi.io/jobsearch/1") // Assuming job ID is 1
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Fetched Job Data:", data); // Log the job data structure
-        setJob(data); // Store the fetched job data
-        setLoading(false); // Loading is complete
-      })
-      .catch((error) => {
-        console.error("Error fetching job details:", error);
-        setLoading(false); // Loading is complete, even if failed
-      });
-  }, []);
-
-  // Input change handlers
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
@@ -85,26 +68,39 @@ const JobDetailComponent = () => {
       return;
     }
 
-    // Create a single object that combines formData and job details
     const combinedData = {
       ...formData,
-      job_id: job?.id,
-      job_title: job?.job_title || job?.title, // Adjust based on the actual field
+      job_id: jobDetails?.id || "1",
+      job_title: jobDetails?.job_title || "Java script",
     };
 
-    // Log the combined object to console
-    console.log(" Data Submitted:", combinedData);
+    console.log("Data Submitted:", combinedData);
 
-    // Process the combined data here, or send it to the backend
+    fetch("https://671a2686acf9aa94f6a95bd1.mockapi.io/Applyform", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(combinedData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Fetched Job Data:", data); // Log the fetched data
+        setJob(data); // Store the fetched job data
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching job details:", error);
+        setLoading(false); // Loading is complete, even if failed
+      });
   };
-
   if (loading) return <p>Loading...</p>; // Display loading message while fetching job data
 
   return (
     <div className="flex items-start justify-start min-h-screen ">
       <div className="bg-white p-6 rounded-lg shadow-lg w-80 mt-7">
         <h2 className="text-2xl font-semibold mb-4">
-          Apply for {job?.job_title || job?.title}
+          Apply for {jobDetails?.job_title || "Java script"}
         </h2>{" "}
         {/* Display job title */}
         <form onSubmit={handleSubmit}>

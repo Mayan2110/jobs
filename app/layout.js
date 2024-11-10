@@ -4,6 +4,9 @@ import HeaderComponent from "./Component/common/headerComponent";
 import FooterComponent from "./component/common/footerComponent";
 import { ToastContainer } from "react-toastify";
 import { ContextProvider } from "./context/contextprovider"
+import "react-toastify/dist/ReactToastify.css";
+import "react-datepicker/dist/react-datepicker.css";
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

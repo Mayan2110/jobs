@@ -1,9 +1,13 @@
-import React from "react";
+"use client";
+import React, { useContext } from "react";
 import SearchIcon from "../icons/searchIcon";
 import NavbarComponent from "./navbarComponent";
 import Link from "next/link";
+import datacontext from "../../context/datacontext";
+import Cookies from "js-cookie";
 
 const HeaderComponent = () => {
+  const { isLogin } = useContext(datacontext);
   return (
     <>
       <div className="sticky top-0 z-50">
@@ -25,10 +29,22 @@ const HeaderComponent = () => {
                 </a>
               </div>
             </div>
-
-            <a href="/signin" className="hover:underline">
-              Sign In
-            </a>
+            {isLogin === "true" ? (
+              <a
+                href="/signin"
+                onClick={() => {
+                  Cookies.remove("is_login");
+                  Cookies.remove("adminEmail");
+                }}
+                className="hover:underline"
+              >
+                Sign Out
+              </a>
+            ) : (
+              <a href="/signin" className="hover:underline">
+                Sign In
+              </a>
+            )}
             <a href="#" className="hover:underline">
               Support
             </a>

@@ -1,5 +1,3 @@
-//
-
 "use client";
 
 import { useContext, useEffect, useState } from "react";
@@ -17,6 +15,7 @@ export default function Jobsearch() {
   const { deepClone } = useContext(datacontext);
 
   const handleChange = ({ field, value }) => {
+    console.log("handleChange: ", handleChange);
     setSelectedFilters((d) => {
       const temp = deepClone(d);
       temp[field] = value;
@@ -32,7 +31,7 @@ export default function Jobsearch() {
       .catch((error) => console.error("Error fetching jobs", error));
   }, []);
 
-  console.log("jobs", jobs);
+  // console.log("jobs", jobs);
 
   const filteredData = jobs.filter((j) => {
     let salaryCondition = true;

@@ -19,7 +19,9 @@ const FilterComponent = ({ handleChange }) => {
             <option value="">Select Job type</option>
             <option value="Full-time">Full-Time</option>
             <option value="part-time">part-time</option>
-            <option value=" Freelance">Freelance</option>
+            <option value="Fresher">Fresher</option>
+            <option value="Internships">Internships</option>
+            <option value="Volunteer">Volunteer</option>
           </select>
         </div>
         <div className="mb-4">
@@ -35,8 +37,9 @@ const FilterComponent = ({ handleChange }) => {
           >
             <option value="">Select Location</option>
             <option value="Ahmedabad">Aemadabad</option>
-            <option value="Baroda">Baroda</option>
+            <option value="baroda">Baroda</option>
             <option value="Surat">Surat</option>
+            <option value="Visnagar">Visnagar</option>
           </select>
         </div>
         <div className="mb-4">
@@ -51,9 +54,12 @@ const FilterComponent = ({ handleChange }) => {
             }
           >
             <option value="">Select Range</option>
-            <option value="10-20">10k - 20k</option>
-            <option value="30-70">30k - 70k</option>
-            <option value="12-25">12k - 25k</option>
+            <option value="10k-20k">10k - 20k</option>
+            <option value="30k-70k">30k - 70k</option>
+            <option value="12k-25k">12k - 25k</option>
+            <option value="20k-30k">20k - 30k</option>
+            <option value="30k-40k">30k - 40k</option>
+            <option value="25k-50k">25k - 50k</option>
           </select>
         </div>
       </div>

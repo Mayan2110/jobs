@@ -1,9 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import { toast,ToastContainer } from "react-toastify";
-
+import { toast } from "react-toastify";
+import Cookies from "js-cookie";
+import datacontext from "../context/datacontext";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -11,6 +12,7 @@ const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const [err, setErr] = useState({});
+  const { isLogin, adminEmail } = useContext(datacontext);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -51,9 +53,6 @@ const SignIn = () => {
         }
 
         const user = users[0]; // Assuming the first matching user
-        console.log(user, "user");
-        console.log("user.password", user.password);
-        console.log("password", password);
         // Validate the password
         if (user.password !== password) {
           setErr({ password: "Incorrect password" });
@@ -62,17 +61,29 @@ const SignIn = () => {
           // Store user details (if needed) and navigate to dashboard
           localStorage.setItem("email", user.email);
           toast.success("sign in successful");
+          if (email === "mayanprajapati18@gmail.com") {
+            Cookies.set("adminEmail", email, { expires: 7 });
+            router.replace("/jobs");
+          } else {
+            router.replace("/job-search");
+          }
+          Cookies.set("is_login", true, { expires: 7 });
           // console.log(user, "user ");
-          router.push("/job-search");
+          router.refresh();
         }
       } catch (error) {
         console.error("An error occurred during login:", error);
-       toast. error("An unexpected error occurred. Please try again later.");
+        toast.error("An unexpected error occurred. Please try again later.");
       }
     }
   };
 
-
+  useEffect(() => {
+    if (isLogin) {
+      if (adminEmail) router.replace("/jobs");
+      else router.replace("/job-search");
+    }
+  }, []);
 
   return (
     <div className="bg-gray-200 flex flex-col  items-center justify-center min-h-screen pt-9">
@@ -155,15 +166,15 @@ const SignIn = () => {
           </div>
           <div className="text-center">
             <p className="text-gray-700">
-              New to TalentConnect?{" "}
-              <a href="#" className="text-blue-500">
-                Join now
+              Allready have TalentConnect?{" "}
+              <a href="/signup" className="text-blue-500">
+                Sign Up
               </a>
             </p>
           </div>
         </div>
       </form>
-      <ToastContainer/>
+
       {/* <p>{err}</p> */}
       <br />
     </div>
