@@ -1,16 +1,27 @@
 "use client";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Datacontext from "./datacontext";
 import Cookies from "js-cookie";
+import { useCookies } from "react-cookie";
 
 export const ContextProvider = ({ children }) => {
   const test = "test";
-  const isLogin = Cookies.get("is_login");
-  const adminEmail = Cookies.get("adminEmail");
+  const [isLogin, setIsLogin] = useState(false);
+  const [adminEmail, setAdminEmail] = useState(null);
+  const [cookies, , removeCookie] = useCookies(["is_login"]);
 
   const deepClone = (obj) => {
-    return JSON.parse(JSON?.stringify(obj));
+    return JSON.parse(JSON.stringify(obj));
   };
+
+  useEffect(() => {
+    const email = Cookies.get("adminEmail");
+
+    setIsLogin(cookies?.is_login);
+    if (email) {
+      setAdminEmail(email);
+    }
+  }, [cookies?.is_login]);
 
   const contextValue = useMemo(
     () => ({
@@ -19,14 +30,10 @@ export const ContextProvider = ({ children }) => {
       isLogin,
       adminEmail,
     }),
-    [test, deepClone]
+    [test, deepClone, isLogin, adminEmail]
   );
 
   return (
-    <div>
-      <Datacontext.Provider value={contextValue}>
-        {children}
-      </Datacontext.Provider>
-    </div>
+    <Datacontext.Provider value={contextValue}>{children}</Datacontext.Provider>
   );
 };

@@ -5,6 +5,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import datacontext from "../context/datacontext";
+import Link from "next/link";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -12,7 +13,20 @@ const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const [err, setErr] = useState({});
-  const { isLogin, adminEmail } = useContext(datacontext);
+  const { adminEmail } = useContext(datacontext);
+
+  useEffect(() => {
+    const isLogin = Cookies.get("is_login");
+    const adminEmail = Cookies.get("adminEmail");
+
+    if (isLogin === "true") {
+      if (adminEmail) {
+        router.replace("/jobs");
+      } else {
+        router.replace("/job-search");
+      }
+    }
+  }, [router]);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -20,12 +34,6 @@ const SignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const { name, value } = e.target;
-    // if (name === "email") {
-    //   setEmail(value);
-    // } else if (name === "password") {
-    //   setPassword(value);
-    // }
 
     const validate = () => {
       let error = {};
@@ -33,42 +41,40 @@ const SignIn = () => {
       if (!password) error.password = "Password is required";
 
       setErr(error);
-      return Object.keys(error).length === 0; // Return true if no errors
+      return Object.keys(error).length === 0;
     };
 
-    // const submit = async (e) => {
     if (validate()) {
       try {
-        // Fetch user data from MockAPI based on the email
         const res = await axios.get(
           `https://670d0d07073307b4ee421ac5.mockapi.io/user?email=${email}`
         );
         const users = res.data;
 
-        // Check if the user exists
         if (users.length === 0) {
           setErr({ email: "User not found" });
           toast.error("User not foud");
           return;
         }
 
-        const user = users[0]; // Assuming the first matching user
-        // Validate the password
+        const user = users[0];
+
         if (user.password !== password) {
           setErr({ password: "Incorrect password" });
           toast.error("incorrect password");
         } else {
-          // Store user details (if needed) and navigate to dashboard
           localStorage.setItem("email", user.email);
           toast.success("sign in successful");
           if (email === "mayanprajapati18@gmail.com") {
             Cookies.set("adminEmail", email, { expires: 7 });
+
             router.replace("/jobs");
           } else {
             router.replace("/job-search");
           }
+          Cookies.set("id", users?.[0]?.id, { expires: 7 });
           Cookies.set("is_login", true, { expires: 7 });
-          // console.log(user, "user ");
+
           router.refresh();
         }
       } catch (error) {
@@ -77,13 +83,6 @@ const SignIn = () => {
       }
     }
   };
-
-  useEffect(() => {
-    if (isLogin) {
-      if (adminEmail) router.replace("/jobs");
-      else router.replace("/job-search");
-    }
-  }, []);
 
   return (
     <div className="bg-gray-200 flex flex-col  items-center justify-center min-h-screen pt-9">
@@ -152,9 +151,9 @@ const SignIn = () => {
             </span>
           </div>
           <div className="mb-6">
-            <a href="#" className="text-blue-500">
+            <Link href="#" className="text-blue-500">
               Forgot password?
-            </a>
+            </Link>
           </div>
           <button className="w-32 bg-blue-500 text-white py-2 rounded hover:bg-blue-600 text-center mx-auto block">
             Sign in
@@ -167,15 +166,14 @@ const SignIn = () => {
           <div className="text-center">
             <p className="text-gray-700">
               Allready have TalentConnect?{" "}
-              <a href="/signup" className="text-blue-500">
+              <Link href="/signup" className="text-blue-500">
                 Sign Up
-              </a>
+              </Link>
             </p>
           </div>
         </div>
       </form>
 
-      {/* <p>{err}</p> */}
       <br />
     </div>
   );

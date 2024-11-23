@@ -33,6 +33,28 @@ export default function JobManagementPage() {
     }
   };
 
+  const deleteJob = async (id) => {
+    try {
+      const response = await fetch(
+        `https://670d0d07073307b4ee421ac5.mockapi.io/login/jobsearch/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (response.ok) {
+        toast.success("Job deleted successfully");
+
+        setJobs((prevJobs) => prevJobs.filter((job) => job.id !== id));
+      } else {
+        toast.error("Failed to delete job");
+      }
+    } catch (error) {
+      console.error("Error deleting job:", error);
+      toast.error("An error occurred while deleting the job.");
+    }
+  };
+
   return (
     <div className="container mx-auto p-4">
       {hasAccess ? (
@@ -60,7 +82,11 @@ export default function JobManagementPage() {
             </thead>
             <tbody>
               {jobs.map((job) => (
-                <tr key={job.id} className="border-b">
+                <tr
+                  key={job.id}
+                  className="border-b cursor-pointer"
+                  onClick={() => router.push(`/jobs/view?id=${job.id}`)}
+                >
                   <td className="p-3">{job.job_title}</td>
                   <td className="p-3">{job.company_name}</td>
                   <td className="p-3">{job.location}</td>
@@ -70,13 +96,19 @@ export default function JobManagementPage() {
                   <td className="p-3">{job.job_type}</td>
                   <td className="p-3 flex space-x-2">
                     <button
-                      onClick={() => router.push(`/jobs/${job?.id}`)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        router.push(`/jobs/${job.id}`);
+                      }}
                       className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700"
                     >
                       Edit
                     </button>
                     <button
-                      onClick={() => rou(job.id)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        deleteJob(job.id);
+                      }}
                       className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700"
                     >
                       Delete

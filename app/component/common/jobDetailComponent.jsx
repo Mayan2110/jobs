@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const JobDetailComponent = ({ jobDetails }) => {
-  console.log("jobDetails: ", jobDetails);
   const [formData, setFormData] = useState({
     name: " ",
     email: " ",
@@ -20,14 +20,8 @@ const JobDetailComponent = ({ jobDetails }) => {
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
-    validateField(id, value); // Validate each field on change
+    validateField(id, value);
   };
-
-  // const handleFileChange = (e) => {
-  //   setFormData({ ...formData, resume: e.target.files[0] });
-  // };
-
-  // Validation logic for fields
 
   const validateField = (id, value) => {
     switch (id) {
@@ -45,7 +39,7 @@ const JobDetailComponent = ({ jobDetails }) => {
         });
         break;
       case "phone":
-        const phoneRegex = /^[0-9]{10}$/; // Only digits, exactly 10 digits long
+        const phoneRegex = /^[0-9]{10}$/;
         setErrors({
           ...errors,
           phone: !phoneRegex.test(value)
@@ -58,11 +52,9 @@ const JobDetailComponent = ({ jobDetails }) => {
     }
   };
 
-  // Form submission handler
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Check for errors before proceeding
     if (errors.name || errors.email || errors.phone) {
       alert("Please correct the errors in the form.");
       return;
@@ -74,8 +66,6 @@ const JobDetailComponent = ({ jobDetails }) => {
       job_title: jobDetails?.job_title || "Java script",
     };
 
-    console.log("Data Submitted:", combinedData);
-
     fetch("https://671a2686acf9aa94f6a95bd1.mockapi.io/Applyform", {
       method: "POST",
       headers: {
@@ -85,16 +75,17 @@ const JobDetailComponent = ({ jobDetails }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Fetched Job Data:", data); // Log the fetched data
-        setJob(data); // Store the fetched job data
+        console.log("Fetched Job Data:", data);
+        setJob(data);
         setLoading(false);
+        toast.success("Application submitted successfully!");
       })
       .catch((error) => {
         console.error("Error fetching job details:", error);
-        setLoading(false); // Loading is complete, even if failed
+        setLoading(false);
       });
   };
-  if (loading) return <p>Loading...</p>; // Display loading message while fetching job data
+  if (loading) return <p>Loading...</p>;
 
   return (
     <div className="flex items-start justify-start min-h-screen ">
@@ -102,7 +93,6 @@ const JobDetailComponent = ({ jobDetails }) => {
         <h2 className="text-2xl font-semibold mb-4">
           Apply for {jobDetails?.job_title || "Java script"}
         </h2>{" "}
-        {/* Display job title */}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700 mb-2" htmlFor="name">
@@ -158,19 +148,6 @@ const JobDetailComponent = ({ jobDetails }) => {
             )}
           </div>
 
-          {/* <div className="mb-4">
-            <label className="block text-gray-700 mb-2" htmlFor="resume">
-              Upload Resume (optional)
-            </label>
-            <div className="relative">
-              <input
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                type="file"
-                id="resume"
-                onChange={handleFileChange}
-              />
-            </div>
-          </div> */}
           <button
             type="submit"
             className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"

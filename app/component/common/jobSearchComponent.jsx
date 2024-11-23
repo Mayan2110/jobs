@@ -1,10 +1,10 @@
 import React from "react";
 import Rectangle from "../../component/images/Rectangle.png";
 import Image from "next/image";
+import Link from "next/link";
 
 const JobSearchComponent = (props) => {
   const { job } = props;
-  console.log("job", job);
 
   return (
     <div className="w-3/4 p-4">
@@ -34,9 +34,9 @@ const JobSearchComponent = (props) => {
             <strong>Job Type:</strong> {job?.job_type}
           </p>
           <div className="flex justify-end h-[28px] text-[25px]">
-            <a className="text-blue-600" href={`/job-detail/${job?.id}`}>
+            <Link className="text-blue-600" href={`/job-detail/${job?.id}`}>
               see more
-            </a>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,9 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import datacontext from "../../context/datacontext";
 import Cookies from "js-cookie";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 const NavbarComponent = () => {
-  const { isLogin } = useContext(datacontext);
+  const pathname = usePathname();
+  const { isLogin, setIsLogin } = useContext(datacontext);
 
   return (
     <div className="bg-white sticky top-9">
@@ -12,11 +15,8 @@ const NavbarComponent = () => {
           TalentConnect
         </div>
         <div className="flex items-center space-x-4 pr-36">
-          <a href="/job-search" className="text-blue-900  ">
-            Jobs
-          </a>
-          {isLogin === "true" ? (
-            <a
+          {isLogin ? (
+            <Link
               href="/signin"
               onClick={() => {
                 Cookies.set("is_login", false);
@@ -26,14 +26,14 @@ const NavbarComponent = () => {
               className="bg-blue-500 text-white px-4 py-2  rounded "
             >
               Sign Out
-            </a>
+            </Link>
           ) : (
-            <a
-              href="/signin"
+            <Link
+              href={pathname === "/signin" ? "/signup" : "/signin"}
               className="bg-blue-500 text-white px-4 py-2  rounded "
             >
-              Sign in
-            </a>
+              {pathname === "/signin" ? "Sign up" : "Signin"}
+            </Link>
           )}
         </div>
       </nav>

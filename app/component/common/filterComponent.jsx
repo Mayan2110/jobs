@@ -18,7 +18,7 @@ const FilterComponent = ({ handleChange }) => {
           >
             <option value="">Select Job type</option>
             <option value="Full-time">Full-Time</option>
-            <option value="part-time">part-time</option>
+            <option value="Part-Time">Part-Time</option>
             <option value="Fresher">Fresher</option>
             <option value="Internships">Internships</option>
             <option value="Volunteer">Volunteer</option>
@@ -55,10 +55,10 @@ const FilterComponent = ({ handleChange }) => {
           >
             <option value="">Select Range</option>
             <option value="10k-20k">10k - 20k</option>
-            <option value="30k-70k">30k - 70k</option>
+            <option value="10k-40k">10k - 40k</option>
             <option value="12k-25k">12k - 25k</option>
-            <option value="20k-30k">20k - 30k</option>
-            <option value="30k-40k">30k - 40k</option>
+            <option value="20k-40k">20k - 40k</option>
+            <option value="30k-50k">30k - 50k</option>
             <option value="25k-50k">25k - 50k</option>
           </select>
         </div>

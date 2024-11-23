@@ -1,18 +1,17 @@
 "use client";
-import React, { useContext } from "react";
-import RectangleImageComponent from "../../component/common/rectangleImageComponent";
-import JobDetailComponent from "../../component/common/jobDetailComponent";
+import React from "react";
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import JobSearchComponent from "../../component/common/jobSearchComponent";
-import datacontext from "../../context/datacontext";
+import { useParams, useSearchParams } from "next/navigation";
+import RectangleImageComponent from "../../component/common/rectangleImageComponent";
 
-export default function Detail() {
-  const params = useParams();
-  const id = params.id;
+export default function JobView() {
+  const params = useSearchParams();
+
+  const id = params.get("id");
+
+  // const id = params.id;
   const [job, setJob] = useState(null);
   const [relatedJobs, setRelatedJobs] = useState([]);
-  const { adminEmail } = useContext(datacontext);
 
   useEffect(() => {
     if (id) {
@@ -142,20 +141,6 @@ export default function Detail() {
               </div>
             </div>
           </div>
-          {!adminEmail && <JobDetailComponent jobDetails={job} />}
-        </div>
-
-        <div className="w-full">
-          <h2 className="text-2xl font-bold text-[#002160] mb-4">
-            Related Jobs
-          </h2>
-          {relatedJobs.length > 0 ? (
-            relatedJobs.map((relatedJob) => (
-              <JobSearchComponent key={relatedJob.id} job={relatedJob} />
-            ))
-          ) : (
-            <p>No related jobs available.</p>
-          )}
         </div>
       </div>
     </div>

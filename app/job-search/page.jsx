@@ -12,10 +12,10 @@ export default function Jobsearch() {
     location: "",
     salary: "",
   });
-  const { deepClone } = useContext(datacontext);
+  const { deepClone, adminEmail } = useContext(datacontext);
+  console.log("adminEmail: ", adminEmail);
 
   const handleChange = ({ field, value }) => {
-    console.log("handleChange: ", handleChange);
     setSelectedFilters((d) => {
       const temp = deepClone(d);
       temp[field] = value;
@@ -27,11 +27,8 @@ export default function Jobsearch() {
     fetch("https://670d0d07073307b4ee421ac5.mockapi.io/jobsearch")
       .then((response) => response.json())
       .then((data) => setjobs(data))
-
       .catch((error) => console.error("Error fetching jobs", error));
   }, []);
-
-  // console.log("jobs", jobs);
 
   const filteredData = jobs.filter((j) => {
     let salaryCondition = true;
@@ -47,9 +44,6 @@ export default function Jobsearch() {
     let jobTypeCondition = true;
     if (selectedFilters.jobType) {
       jobTypeCondition = j.job_type === selectedFilters.jobType;
-      // console.log(
-      //   `Checking job_type: ${j.job_type}, Selected: ${selectedFilters.jobType}, Condition: ${jobTypeCondition}`
-      // );
     }
 
     return salaryCondition && locationCondition && jobTypeCondition;

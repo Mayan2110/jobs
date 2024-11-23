@@ -6,6 +6,7 @@ import Idea from "../icons/idea";
 import { toast } from "react-toastify";
 
 const JobUpdateComponent = ({ id = "" }) => {
+  const [errors, setErrors] = useState({});
   const router = useRouter();
   const [formData, setFormData] = useState({
     job_title: "",
@@ -24,7 +25,6 @@ const JobUpdateComponent = ({ id = "" }) => {
     benefits_and_Perks: [],
   });
   const idAvailable = id && typeof id === "string" && id !== "";
-  // console.log("formData: ", formData);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,20 +47,46 @@ const JobUpdateComponent = ({ id = "" }) => {
     });
   };
 
+  const validateForm = () => {
+    const errors = {};
+
+    // Basic text fields
+    if (!formData.job_title) errors.job_title = "Job title is required.";
+    if (!formData.company_name)
+      errors.company_name = "Company name is required.";
+    if (!formData.job_Overview)
+      errors.job_Overview = "Job overview is required.";
+    if (!formData.location) errors.location = "Location is required.";
+    if (!formData.country) errors.country = "Country is required.";
+    if (!formData.salary_min) errors.salary_min = "Minimum salary is required.";
+    if (!formData.salary_max) errors.salary_max = "Maximum salary is required.";
+    if (!formData.key_Responsibilities)
+      errors.key_Responsibilities = "Key responsibilities are required.";
+    if (!formData.qualifications)
+      errors.qualifications = "Qualifications are required.";
+    if (!formData.salary) errors.salary = "Salary is required.";
+    if (!formData.job_type) {
+      errors.job_type = "Job type one required.";
+      z;
+    }
+    // Array fields
+    if (formData.skills_and_Competencies.length === 0) {
+      errors.skills_and_Competencies = "Skills and competencies are required.";
+    }
+    if (formData.benefits_and_Perks.length === 0) {
+      errors.benefits_and_Perks = "Benefits and perks are required.";
+    }
+    if (formData.education_and_Experience.length === 0) {
+      errors.education_and_Experience =
+        "Education and experience are required.";
+    }
+
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleSubmit = async () => {
-    if (
-      (!formData.job_Overview ||
-        !formData.location ||
-        !formData.country ||
-        !formData.salary_min ||
-        !formData.salary_max ||
-        !formData.key_Responsibilities ||
-        !formData.qualifications ||
-        !formData.salary ||
-        formData.skills_and_Competencies.length === 0,
-      formData.benefits_and_Perks.length === 0,
-      formData.education_and_Experience === 0)
-    ) {
+    if (!validateForm()) {
       toast.error("Please fill out all required fields.");
       return;
     }
@@ -116,7 +142,7 @@ const JobUpdateComponent = ({ id = "" }) => {
       );
       if (response) {
         const result = await response.json();
-        // console.log("result: ", result);
+
         setFormData(result);
       } else {
         throw new Error("Failed to fetch job data.");
@@ -161,6 +187,11 @@ const JobUpdateComponent = ({ id = "" }) => {
                   <option value="Javascript">Javascript</option>
                   <option value="uiux">Ui Ux</option>
                 </select>
+                {errors.job_title && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.job_title}
+                  </p>
+                )}
               </div>
 
               <div className="w-1/2">
@@ -174,6 +205,11 @@ const JobUpdateComponent = ({ id = "" }) => {
                   className="w-full border border-gray-300 p-2 rounded"
                   type="text"
                 />
+                {errors.company_name && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.company_name}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -188,6 +224,11 @@ const JobUpdateComponent = ({ id = "" }) => {
                 className="w-full border border-gray-300 p-2 rounded"
                 rows="5"
               ></textarea>
+              {errors.job_Overview && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.job_Overview}
+                </p>
+              )}
             </div>
 
             <div className="flex space-x-4 mb-4">
@@ -207,6 +248,9 @@ const JobUpdateComponent = ({ id = "" }) => {
                   <option value="Baroda">Baroda</option>
                   <option value="Visnagar">Visnagar</option>
                 </select>
+                {errors.location && (
+                  <p className="text-red-500 text-xs mt-1">{errors.location}</p>
+                )}
               </div>
 
               <div className="w-1/2">
@@ -222,6 +266,9 @@ const JobUpdateComponent = ({ id = "" }) => {
                 >
                   <option value="India">India</option>
                 </select>
+                {errors.country && (
+                  <p className="text-red-500 text-xs mt-1">{errors.country}</p>
+                )}
               </div>
             </div>
 
@@ -236,6 +283,11 @@ const JobUpdateComponent = ({ id = "" }) => {
                 className="w-full border border-gray-300 p-2 rounded"
                 rows="5"
               ></textarea>
+              {errors.key_Responsibilities && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.key_Responsibilities}
+                </p>
+              )}
             </div>
 
             <div className="mb-4">
@@ -249,6 +301,11 @@ const JobUpdateComponent = ({ id = "" }) => {
                 className="w-full border border-gray-300 p-2 rounded"
                 rows="5"
               ></textarea>
+              {errors.qualifications && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.qualifications}
+                </p>
+              )}
             </div>
             <div className="mb-4">
               <label className="block text-[#002160] mb-2 text-[16px]">
@@ -276,6 +333,9 @@ const JobUpdateComponent = ({ id = "" }) => {
                   </button>
                 ))}
               </div>
+              {errors.job_type && (
+                <p className="text-red-600 text-sm mt-1">{errors.job_type}</p>
+              )}
             </div>
 
             <div className="mb-4">
@@ -308,6 +368,11 @@ const JobUpdateComponent = ({ id = "" }) => {
                   </button>
                 ))}
               </div>
+              {errors.skills_and_Competencies && (
+                <p className="text-red-600 text-sm mt-1">
+                  {errors.skills_and_Competencies}
+                </p>
+              )}
             </div>
 
             <h2 className="text-xl font-bold text-[#002160] mb-4 text-[25px]">
@@ -349,6 +414,11 @@ const JobUpdateComponent = ({ id = "" }) => {
                   className="border border-gray-300 p-2 rounded h-[53px] w-[230px]"
                   type="text"
                 />
+                {errors.salary_min && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.salary_min}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -382,6 +452,11 @@ const JobUpdateComponent = ({ id = "" }) => {
                   </button>
                 ))}
               </div>
+              {errors.education_and_Experience && (
+                <p className="text-red-600 text-sm mt-1">
+                  {errors.education_and_Experience}
+                </p>
+              )}
             </div>
             <div className="mb-4">
               <label className="block text-[#002160] mb-2 text-[16px]">
@@ -412,10 +487,15 @@ const JobUpdateComponent = ({ id = "" }) => {
                   </button>
                 ))}
               </div>
+              {errors.benefits_and_Perks && (
+                <p className="text-red-600 text-sm mt-1">
+                  {errors.benefits_and_Perks}
+                </p>
+              )}
             </div>
             <div className="flex justify-between pt-2">
               <button
-                onClick={() => router.back()} // Use router.back() for Back button
+                onClick={() => router.back()}
                 className="text-blue-600 hover:underline"
               >
                 Back
@@ -452,3 +532,4 @@ const JobUpdateComponent = ({ id = "" }) => {
 };
 
 export default JobUpdateComponent;
+
