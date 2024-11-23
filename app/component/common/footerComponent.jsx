@@ -1,7 +1,7 @@
 import React from "react";
 import FacebookIcon from "../icons/facebookicon";
 import TwitterIcon from "../icons/twitter";
-import YouTubeIcon from "../icons/youtube";
+import YouTubeIcon from "../icons/youTube";
 import RSSIcon from "../icons/rss";
 
 const FooterComponent = () => {

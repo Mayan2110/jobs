@@ -1,7 +1,7 @@
 import localFont from "next/font/local";
 import "./globals.css";
-import HeaderComponent from "./Component/common/headerComponent";
 import FooterComponent from "./component/common/footerComponent";
+import HeaderComponent from "./component/common/headerComponent";
 import { ToastContainer } from "react-toastify";
 import { ContextProvider } from "./context/contextprovider"
 import "react-toastify/dist/ReactToastify.css";
