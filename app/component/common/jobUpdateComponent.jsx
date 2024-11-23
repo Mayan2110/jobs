@@ -125,7 +125,7 @@ const JobUpdateComponent = ({ id = "" }) => {
         } else {
           toast.success("Job posted successfully!");
         }
-        router.push("/jobs");
+        router.push("/admin/jobs");
       } else {
         toast.error("Failed to post job. Please try again.");
       }
@@ -532,4 +532,3 @@ const JobUpdateComponent = ({ id = "" }) => {
 };
 
 export default JobUpdateComponent;
-

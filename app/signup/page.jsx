@@ -38,7 +38,7 @@ const Signup = () => {
 
     if (isLogin === "true") {
       if (adminEmail) {
-        router.replace("/jobs");
+        router.replace("/admin/jobs");
       } else {
         router.replace("/job-search");
       }
@@ -92,7 +92,7 @@ const Signup = () => {
         Cookies.set("is_login", true, { expires: 7 }); // Save each field with 7-day expiry
         if (userdata?.email === "mayanprajapati18@gmail.com") {
           Cookies.set("adminEmail", userdata?.email, { expires: 7 });
-          router.replace("/jobs");
+          router.replace("/admin/jobs");
         } else {
           router.replace("/job-search");
         }
@@ -306,4 +306,3 @@ const Signup = () => {
 };
 
 export default Signup;
-

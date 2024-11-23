@@ -21,7 +21,7 @@ const SignIn = () => {
 
     if (isLogin === "true") {
       if (adminEmail) {
-        router.replace("/jobs");
+        router.replace("/admin/jobs");
       } else {
         router.replace("/job-search");
       }
@@ -68,7 +68,7 @@ const SignIn = () => {
           if (email === "mayanprajapati18@gmail.com") {
             Cookies.set("adminEmail", email, { expires: 7 });
 
-            router.replace("/jobs");
+            router.replace("/admin/jobs");
           } else {
             router.replace("/job-search");
           }
@@ -155,7 +155,10 @@ const SignIn = () => {
               Forgot password?
             </Link>
           </div>
-          <button className="w-32 bg-blue-500 text-white py-2 rounded hover:bg-blue-600 text-center mx-auto block">
+          <button
+            type="submit"
+            className="w-32 bg-blue-500 text-white py-2 rounded hover:bg-blue-600 text-center mx-auto block"
+          >
             Sign in
           </button>
           <div className="flex items-center my-6">

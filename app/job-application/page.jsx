@@ -38,7 +38,7 @@ export default function page() {
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-bold mb-4">JOb Application Data</h1>
             <button
-              onClick={() => router.push("/jobs")}
+              onClick={() => router.push("/admin/jobs")}
               className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
             >
               jobs

@@ -83,7 +83,7 @@ const HeaderComponent = () => {
           <div className="container mx-auto px-4 py-2 flex justify-end items-center space-x-6 pr-52">
             <div className="relative group">
               {/* Wrap the Jobs button in Link for navigation */}
-              <Link href="/jobs" className="focus:outline-none leading-4">
+              <Link href="admin//jobs" className="focus:outline-none leading-4">
                 Jobs <i className="fas fa-chevron-down"></i>
               </Link>
             </div>

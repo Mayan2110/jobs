@@ -1,13 +1,13 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
-import RectangleImageComponent from "../../component/common/rectangleImageComponent";
+import RectangleImageComponent from "../../../component/common/rectangleImageComponent";
 
-export default function JobView() {
+const JobViewData = () => {
   const params = useSearchParams();
 
-  const id = params.get("id");
+  const id = params.get("id") ?? "";
 
   // const id = params.id;
   const [job, setJob] = useState(null);
@@ -145,4 +145,14 @@ export default function JobView() {
       </div>
     </div>
   );
-}
+};
+
+const JobView = () => {
+  return (
+    <Suspense>
+      <JobViewData />
+    </Suspense>
+  );
+};
+
+export default JobView;

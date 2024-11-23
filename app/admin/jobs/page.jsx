@@ -63,7 +63,7 @@ export default function JobManagementPage() {
             <h1 className="text-2xl font-bold mb-4">Admin Job Management</h1>
 
             <button
-              onClick={() => router.push("/jobs/add")}
+              onClick={() => router.push("/admin/jobs/add")}
               className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
             >
               Add job
@@ -85,7 +85,7 @@ export default function JobManagementPage() {
                 <tr
                   key={job.id}
                   className="border-b cursor-pointer"
-                  onClick={() => router.push(`/jobs/view?id=${job.id}`)}
+                  onClick={() => router.push(`/admin/jobs/view?id=${job.id}`)}
                 >
                   <td className="p-3">{job.job_title}</td>
                   <td className="p-3">{job.company_name}</td>
@@ -98,7 +98,7 @@ export default function JobManagementPage() {
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        router.push(`/jobs/${job.id}`);
+                        router.push(`/admin/jobs/${job.id}`);
                       }}
                       className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700"
                     >
