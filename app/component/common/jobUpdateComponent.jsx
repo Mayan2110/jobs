@@ -69,7 +69,7 @@ const JobUpdateComponent = ({ id = "" }) => {
       errors.job_type = "Job type one required.";
       z;
     }
-    // Array fields
+
     if (formData.skills_and_Competencies.length === 0) {
       errors.skills_and_Competencies = "Skills and competencies are required.";
     }

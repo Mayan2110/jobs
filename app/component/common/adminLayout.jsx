@@ -1,7 +1,8 @@
+"use client";
 import React from "react";
-
 import { Layout, Menu, theme } from "antd";
 import Link from "next/link";
+import ChangePasswordComponent from "./changepasswordComponent";
 
 const { Content, Sider } = Layout;
 
@@ -10,7 +11,7 @@ const Adminlayout = ({ children }) => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
   return (
-    <Layout className="mt-5">
+    <Layout className="mt-5 ">
       <Layout>
         <Sider
           width={200}
@@ -44,12 +45,13 @@ const Adminlayout = ({ children }) => {
         <Layout
           style={{
             padding: "0 24px 24px",
+            margin: "20px",
           }}
         >
           <Content
             style={{
               padding: 24,
-              margin: 0,
+              margin: 20,
               minHeight: 280,
               background: colorBgContainer,
               borderRadius: borderRadiusLG,

@@ -1,9 +1,9 @@
 "use client";
-import React, { Suspense } from "react";
+
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import RectangleImageComponent from "../../../component/common/rectangleImageComponent";
-
+import Adminlayout from "../../../component/common/adminLayout";
 const JobViewData = () => {
   const params = useSearchParams();
 
@@ -42,9 +42,9 @@ const JobViewData = () => {
   if (!job) return <span>loading...</span>;
 
   return (
-    <div className="flex bg-gray-100 ">
+    <Adminlayout>
       <div className="mx-auto">
-        <div className="flex mx-auto">
+        <div className="flex mx-auto justify-center">
           <div className=" p-6">
             <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
               <div className="flex items-center mb-4 gap-2">
@@ -143,16 +143,12 @@ const JobViewData = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Adminlayout>
   );
 };
 
 const JobView = () => {
-  return (
-    <Suspense>
-      <JobViewData />
-    </Suspense>
-  );
+  return <JobViewData />;
 };
 
 export default JobView;
