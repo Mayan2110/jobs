@@ -2,6 +2,7 @@ import React from "react";
 import Rectangle from "../../component/images/Rectangle.png";
 import Image from "next/image";
 import Link from "next/link";
+ 
 
 const JobSearchComponent = (props) => {
   const { job } = props;
