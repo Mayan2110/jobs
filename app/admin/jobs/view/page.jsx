@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation"; // Import useRouter
 import RectangleImageComponent from "../../../component/common/rectangleImageComponent";
 import Adminlayout from "../../../component/common/adminLayout";
+import { Suspense } from "react";
 
 const JobViewData = () => {
   const params = useSearchParams();
@@ -154,7 +155,9 @@ const JobViewData = () => {
 };
 
 const JobView = () => {
-  return <JobViewData />;
+  <Suspense>
+    return <JobViewData />;
+  </Suspense>;
 };
 
 export default JobView;
