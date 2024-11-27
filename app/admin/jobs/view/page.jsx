@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import RectangleImageComponent from "../../../component/common/rectangleImageComponent";
@@ -154,7 +154,11 @@ const JobViewData = () => {
 };
 
 const JobView = () => {
-  return <JobViewData />;
+  return (
+    <Suspense>
+      <JobViewData />
+    </Suspense>
+  );
 };
 
 export default JobView;
