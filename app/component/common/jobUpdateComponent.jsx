@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import UiuxComponent from "./uiuxComponent";
 import Idea from "../icons/idea";
 import { toast } from "react-toastify";
+import Adminlayout from "./adminLayout";
 
 const JobUpdateComponent = ({ id = "" }) => {
   const [errors, setErrors] = useState({});
@@ -160,8 +161,14 @@ const JobUpdateComponent = ({ id = "" }) => {
   }, []);
 
   return (
-    <div className="bg-gray-100">
+    <Adminlayout>
       <main className="container mx-auto mt-8">
+        <button
+          onClick={() => router.back()}
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          Back
+        </button>
         <div className="flex space-x-8 pt-10">
           <div className="bg-white p-8 rounded-lg shadow-lg h-full w-[817px] px-6">
             <h2 className="text-[25px] font-bold text-[#002160] mb-4">
@@ -495,13 +502,6 @@ const JobUpdateComponent = ({ id = "" }) => {
             </div>
             <div className="flex justify-between pt-2">
               <button
-                onClick={() => router.back()}
-                className="text-blue-600 hover:underline"
-              >
-                Back
-              </button>
-
-              <button
                 onClick={handleSubmit}
                 className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded"
               >
@@ -527,7 +527,7 @@ const JobUpdateComponent = ({ id = "" }) => {
           </div>
         </div>
       </main>
-    </div>
+    </Adminlayout>
   );
 };
 

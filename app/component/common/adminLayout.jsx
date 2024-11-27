@@ -2,7 +2,7 @@
 import React from "react";
 import { Layout, Menu, theme } from "antd";
 import Link from "next/link";
-import ChangePasswordComponent from "./changepasswordComponent";
+
 
 const { Content, Sider } = Layout;
 

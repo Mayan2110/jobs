@@ -1,15 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation"; // Import useRouter
 import RectangleImageComponent from "../../../component/common/rectangleImageComponent";
 import Adminlayout from "../../../component/common/adminLayout";
+
 const JobViewData = () => {
   const params = useSearchParams();
+  const router = useRouter(); // Initialize useRouter
 
   const id = params.get("id") ?? "";
 
-  // const id = params.id;
   const [job, setJob] = useState(null);
   const [relatedJobs, setRelatedJobs] = useState([]);
 
@@ -21,10 +23,10 @@ const JobViewData = () => {
           setJob(data);
           fetchRelatedJobs(data.location, data.job_type);
         })
-
         .catch((error) => console.error("Error fetching job details", error));
     }
   }, [id]);
+
   const fetchRelatedJobs = (location, jobType) => {
     fetch(`https://670d0d07073307b4ee421ac5.mockapi.io/jobsearch`)
       .then((response) => response.json())
@@ -39,13 +41,20 @@ const JobViewData = () => {
       .catch((error) => console.error("Error fetching related jobs", error));
   };
 
-  if (!job) return <span>loading...</span>;
+  if (!job) return <span>Loading...</span>;
 
   return (
     <Adminlayout>
       <div className="mx-auto">
+        {/* Back Button */}
+        <button
+          onClick={() => router.back()} // Use router.back() for navigation
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          Back
+        </button>
         <div className="flex mx-auto justify-center">
-          <div className=" p-6">
+          <div className="p-6">
             <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
               <div className="flex items-center mb-4 gap-2">
                 <RectangleImageComponent />
@@ -62,12 +71,10 @@ const JobViewData = () => {
               </h2>
               <div className="flex justify-between text-[#002160] mb-4">
                 <p>
-                  <span className="font-bold">Location:</span>
-                  {job?.location}
+                  <span className="font-bold">Location:</span> {job?.location}
                 </p>
                 <p>
-                  <span className="font-bold">Type:</span>
-                  {job?.job_type}
+                  <span className="font-bold">Type:</span> {job?.job_type}
                 </p>
               </div>
               <div className="mb-4">
@@ -78,13 +85,13 @@ const JobViewData = () => {
               </div>
               <div className="mb-4">
                 <h3 className="text-xl text-[#002160] font-bold mb-2">
-                  key Responsibilities:
+                  Key Responsibilities:
                 </h3>
                 <p>{job?.key_Responsibilities}</p>
               </div>
               <div className="mb-4">
                 <h3 className="text-xl text-[#002160] font-bold mb-2">
-                  qualificatios:
+                  Qualifications:
                 </h3>
                 <p>{job?.qualifications}</p>
               </div>
@@ -102,32 +109,31 @@ const JobViewData = () => {
                   )}
                 </ul>
               </div>
-
               <div className="mb-4">
                 <h3 className="text-xl font-bold text-[#002160] mb-2">
-                  benefits and Perks:
+                  Benefits and Perks:
                 </h3>
                 <ul className="list-disc list-inside">
                   {job?.benefits_and_Perks?.length > 0 ? (
-                    job.benefits_and_Perks.map((skill, index) => (
-                      <li key={index}>{skill}</li>
+                    job.benefits_and_Perks.map((benefit, index) => (
+                      <li key={index}>{benefit}</li>
                     ))
                   ) : (
-                    <li>No key skill available.</li>
+                    <li>No benefits available.</li>
                   )}
                 </ul>
               </div>
               <div className="mb-4">
                 <h3 className="text-xl font-bold text-[#002160] mb-2">
-                  education andExperience:
+                  Education and Experience:
                 </h3>
                 <ul className="list-disc list-inside">
                   {job?.education_and_Experience?.length > 0 ? (
-                    job.education_and_Experience.map((skill, index) => (
-                      <li key={index}>{skill}</li>
+                    job.education_and_Experience.map((education, index) => (
+                      <li key={index}>{education}</li>
                     ))
                   ) : (
-                    <li>No key skill available.</li>
+                    <li>No education details available.</li>
                   )}
                 </ul>
               </div>
