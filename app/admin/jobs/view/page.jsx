@@ -2,14 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation"; // Import useRouter
+import { useRouter } from "next/navigation";
 import RectangleImageComponent from "../../../component/common/rectangleImageComponent";
 import Adminlayout from "../../../component/common/adminLayout";
-import { Suspense } from "react";
 
 const JobViewData = () => {
   const params = useSearchParams();
-  const router = useRouter(); // Initialize useRouter
+  const router = useRouter();
 
   const id = params.get("id") ?? "";
 
@@ -49,7 +48,7 @@ const JobViewData = () => {
       <div className="mx-auto">
         {/* Back Button */}
         <button
-          onClick={() => router.back()} // Use router.back() for navigation
+          onClick={() => router.back()}
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
         >
           Back
@@ -155,9 +154,8 @@ const JobViewData = () => {
 };
 
 const JobView = () => {
-  <Suspense>
-    return <JobViewData />;
-  </Suspense>;
+  return <JobViewData />;
 };
 
 export default JobView;
+
