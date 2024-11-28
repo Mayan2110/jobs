@@ -500,7 +500,7 @@ const JobUpdateComponent = ({ id = "", isLogin }) => {
                 </p>
               )}
             </div>
-            <div className="flex justify-between pt-2">
+            <div className="flex justify-end pt-2">
               <button
                 onClick={handleSubmit}
                 className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded"

@@ -16,10 +16,10 @@ const Adminlayout = ({ children }) => {
         width={200}
         style={{
           background: colorBgContainer,
-          position: "fixed", // Make the sidebar sticky
-          height: "100vh", // Full height for sticky effect
-          overflow: "auto", // Allow scrolling for sidebar content if necessary
-          left: 0, // Align to the left
+          position: "fixed",
+          height: "100vh",
+          overflow: "auto",
+          left: 0,
         }}
       >
         <Menu
@@ -47,9 +47,9 @@ const Adminlayout = ({ children }) => {
       </Sider>
       <Layout
         style={{
-          marginLeft: 200, // Offset for the fixed sidebar
+          marginLeft: 200,
           padding: "24px 16px",
-          background: "#f0f2f5", // Neutral background for content area
+          background: "#f0f2f5",
         }}
       >
         <Content
@@ -57,8 +57,8 @@ const Adminlayout = ({ children }) => {
             padding: 24,
             background: colorBgContainer,
             borderRadius: borderRadiusLG,
-            overflowY: "auto", // Enable scrolling for overflowing content
-            maxHeight: "100vh", // Ensure the content area fits within the viewport
+            overflowY: "auto",
+            maxHeight: "100vh",
           }}
         >
           {children}

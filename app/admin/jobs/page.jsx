@@ -64,12 +64,12 @@ export default function JobManagementPage() {
     }
   };
 
-  // Render the UI conditionally based on access and loading state
+  
   return (
     <Adminlayout>
       <div className="container mx-auto p-4">
         {loading ? (
-          <p>Loading...</p> // Show a loading indicator while checking access or fetching data
+          <p>Loading...</p>
         ) : hasAccess ? (
           <>
             <div className="flex justify-between items-center">
