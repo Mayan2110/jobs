@@ -6,7 +6,7 @@ import Idea from "../icons/idea";
 import { toast } from "react-toastify";
 import Adminlayout from "./adminLayout";
 
-const JobUpdateComponent = ({ id = "" }) => {
+const JobUpdateComponent = ({ id = "", isLogin }) => {
   const [errors, setErrors] = useState({});
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -170,7 +170,7 @@ const JobUpdateComponent = ({ id = "" }) => {
           Back
         </button>
         <div className="flex space-x-8 pt-10">
-          <div className="bg-white p-8 rounded-lg shadow-lg h-full w-[817px] px-6">
+          <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
             <h2 className="text-[25px] font-bold text-[#002160] mb-4">
               Describe The Job
             </h2>
@@ -510,21 +510,23 @@ const JobUpdateComponent = ({ id = "" }) => {
             </div>
           </div>
 
-          <div className="w-1/3">
-            <div className="bg-white p-8 rounded-lg shadow-lg mb-4">
-              <UiuxComponent />
-            </div>
-            <div className="bg-white p-8 rounded-lg shadow-lg">
-              <Idea />
-              <div className="mb-4 py-3">
-                <p>
-                  Clearly outlining the role's responsibilities and objectives
-                  attracts suitable candidates with cross-industry applications,
-                  ensuring a better fit for both parties.
-                </p>
+          {isLogin && (
+            <div className="w-1/3">
+              <div className="bg-white p-8 rounded-lg shadow-lg mb-4">
+                <UiuxComponent />
+              </div>
+              <div className="bg-white p-8 rounded-lg shadow-lg">
+                <Idea />
+                <div className="mb-4 py-3">
+                  <p>
+                    Clearly outlining the role's responsibilities and objectives
+                    attracts suitable candidates with cross-industry
+                    applications, ensuring a better fit for both parties.
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </main>
     </Adminlayout>

@@ -8,18 +8,27 @@ import Adminlayout from "../../component/common/adminLayout";
 export default function JobManagementPage() {
   const router = useRouter();
   const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true); // Track loading state
   const [hasAccess, setHasAccess] = useState(false);
 
   useEffect(() => {
+    // Get the admin email from cookies
     const adminEmail = Cookies.get("adminEmail");
+
+    // Check if the user has the correct admin email
     if (adminEmail === "mayanprajapati18@gmail.com") {
       setHasAccess(true);
-      fetchJobs();
+      fetchJobs(); // If admin, fetch jobs data
     } else {
+      // If not an admin, redirect to job search page
       toast.error("Access denied. Please log in as an admin.");
+      router.push("/job-search");
     }
-  }, []);
 
+    setLoading(false); // Set loading to false after check
+  }, [router]);
+
+  // Fetch job listings
   const fetchJobs = async () => {
     try {
       const response = await fetch(
@@ -33,6 +42,7 @@ export default function JobManagementPage() {
     }
   };
 
+  // Delete job handler
   const deleteJob = async (id) => {
     try {
       const response = await fetch(
@@ -44,7 +54,6 @@ export default function JobManagementPage() {
 
       if (response.ok) {
         toast.success("Job deleted successfully");
-
         setJobs((prevJobs) => prevJobs.filter((job) => job.id !== id));
       } else {
         toast.error("Failed to delete job");
@@ -55,14 +64,16 @@ export default function JobManagementPage() {
     }
   };
 
+  // Render the UI conditionally based on access and loading state
   return (
     <Adminlayout>
       <div className="container mx-auto p-4">
-        {hasAccess ? (
+        {loading ? (
+          <p>Loading...</p> // Show a loading indicator while checking access or fetching data
+        ) : hasAccess ? (
           <>
             <div className="flex justify-between items-center">
               <h1 className="text-2xl font-bold mb-4">Admin Job Management</h1>
-
               <button
                 onClick={() => router.push("/admin/jobs/add")}
                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
