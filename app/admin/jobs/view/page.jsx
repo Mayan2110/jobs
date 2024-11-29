@@ -1,19 +1,16 @@
 "use client";
 
 import { Suspense, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import RectangleImageComponent from "../../../component/common/rectangleImageComponent";
 import Adminlayout from "../../../component/common/adminLayout";
 
 const JobViewData = () => {
   const params = useSearchParams();
   const router = useRouter();
-
   const id = params.get("id") ?? "";
-
   const [job, setJob] = useState(null);
-  const [relatedJobs, setRelatedJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (id) {
@@ -21,32 +18,26 @@ const JobViewData = () => {
         .then((response) => response.json())
         .then((data) => {
           setJob(data);
-          fetchRelatedJobs(data.location, data.job_type);
         })
-        .catch((error) => console.error("Error fetching job details", error));
+        .catch((error) => console.error("Error fetching job details", error))
+        .finally(() => setLoading(false));
     }
   }, [id]);
 
-  const fetchRelatedJobs = (location, jobType) => {
-    fetch(`https://670d0d07073307b4ee421ac5.mockapi.io/jobsearch`)
-      .then((response) => response.json())
-      .then((data) => {
-        const filteredJobs = data.filter(
-          (j) =>
-            (j.location === location || j.job_type === jobType) && j.id !== id
-        );
-
-        setRelatedJobs(filteredJobs);
-      })
-      .catch((error) => console.error("Error fetching related jobs", error));
-  };
-
-  if (!job) return <span>Loading...</span>;
+  if (loading) {
+    return (
+      <Adminlayout>
+        <div className="flex justify-center items-center h-screen">
+          <div className="loader border-t-4 border-blue-500 border-solid rounded-full w-12 h-12 animate-spin"></div>
+          <span className="ml-2 text-blue-500 font-semibold">Loading...</span>
+        </div>
+      </Adminlayout>
+    );
+  }
 
   return (
     <Adminlayout>
       <div className="mx-auto">
-        {/* Back Button */}
         <button
           onClick={() => router.back()}
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
@@ -162,4 +153,3 @@ const JobView = () => {
 };
 
 export default JobView;
-
