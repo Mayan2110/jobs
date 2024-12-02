@@ -51,7 +51,6 @@ const JobUpdateComponent = ({ id = "", isLogin }) => {
   const validateForm = () => {
     const errors = {};
 
-    // Basic text fields
     if (!formData.job_title) errors.job_title = "Job title is required.";
     if (!formData.company_name)
       errors.company_name = "Company name is required.";

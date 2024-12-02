@@ -37,7 +37,7 @@ const FilterComponent = ({ handleChange }) => {
           >
             <option value="">Select Location</option>
             <option value="Ahmedabad">Aemadabad</option>
-            <option value="baroda">Baroda</option>
+            <option value="Baroda">Baroda</option>
             <option value="Surat">Surat</option>
             <option value="Visnagar">Visnagar</option>
           </select>

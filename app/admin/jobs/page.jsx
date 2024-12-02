@@ -8,27 +8,23 @@ import Adminlayout from "../../component/common/adminLayout";
 export default function JobManagementPage() {
   const router = useRouter();
   const [jobs, setJobs] = useState([]);
-  const [loading, setLoading] = useState(true); // Track loading state
+  const [loading, setLoading] = useState(true);
   const [hasAccess, setHasAccess] = useState(false);
 
   useEffect(() => {
-    // Get the admin email from cookies
     const adminEmail = Cookies.get("adminEmail");
 
-    // Check if the user has the correct admin email
     if (adminEmail === "mayanprajapati18@gmail.com") {
       setHasAccess(true);
-      fetchJobs(); // If admin, fetch jobs data
+      fetchJobs();
     } else {
-      // If not an admin, redirect to job search page
       toast.error("Access denied. Please log in as an admin.");
       router.push("/job-search");
     }
 
-    setLoading(false); // Set loading to false after check
+    setLoading(false);
   }, [router]);
 
-  // Fetch job listings
   const fetchJobs = async () => {
     try {
       const response = await fetch(
@@ -42,7 +38,7 @@ export default function JobManagementPage() {
     }
   };
 
-  // Delete job handler
+ 
   const deleteJob = async (id) => {
     try {
       const response = await fetch(

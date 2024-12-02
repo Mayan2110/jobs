@@ -43,45 +43,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-
-      <section className="bg-white py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h3 className="text-2xl font-bold mb-8">Unlock the Benefits of TalentConnect</h3>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {[
-              {
-                title: 'Streamlined Recruitment',
-                description: 'Simplify every step of hiring.',
-                icon: '🌟',
-              },
-              {
-                title: 'Access Top Talent',
-                description: 'Connect with skilled professionals.',
-                icon: '💼',
-              },
-              {
-                title: 'Strengthen Brand Presence',
-                description: 'Attract top talent effortlessly.',
-                icon: '📈',
-              },
-              {
-                title: 'Dedicated Support',
-                description: 'Personalized assistance for hiring.',
-                icon: '🤝',
-              },
-            ].map((feature, index) => (
-              <div key={index} className="space-y-2">
-                <div className="text-4xl">{feature.icon}</div>
-                <h4 className="font-bold">{feature.title}</h4>
-                <p className="text-gray-600">{feature.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-
       <section className="bg-blue-600 text-white py-16">
         <div className="container mx-auto px-4 text-center">
           <h3 className="text-2xl font-bold mb-4">Ready to hire?</h3>
