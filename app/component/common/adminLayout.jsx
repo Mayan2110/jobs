@@ -2,6 +2,7 @@
 import React from "react";
 import { Layout, Menu, theme } from "antd";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const { Content, Sider } = Layout;
 
@@ -9,6 +10,29 @@ const Adminlayout = ({ children }) => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const pathname = usePathname();
+
+  const menuItems = [
+    {
+      key: "/admin/jobs",
+      label: (
+        <Link className="text-xl" href={"/admin/jobs"}>
+          {" "}
+          Jobs{" "}
+        </Link>
+      ),
+    },
+    {
+      key: "/admin/job-application",
+      label: (
+        <Link className="text-xl" href={"/admin/job-application"}>
+          {" "}
+          Job Application{" "}
+        </Link>
+      ),
+    },
+  ];
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -22,28 +46,7 @@ const Adminlayout = ({ children }) => {
           left: 0,
         }}
       >
-        <Menu
-          mode="inline"
-          defaultSelectedKeys={["1"]}
-          items={[
-            {
-              key: "1",
-              label: (
-                <Link className="text-xl" href={"/admin/jobs"}>
-                  Jobs
-                </Link>
-              ),
-            },
-            {
-              key: "2",
-              label: (
-                <Link className="text-xl" href={"/admin/job-application"}>
-                  Job Application
-                </Link>
-              ),
-            },
-          ]}
-        />
+        <Menu mode="inline" selectedKeys={[pathname]} items={menuItems} />
       </Sider>
       <Layout
         style={{

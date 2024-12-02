@@ -14,16 +14,14 @@ export default function Jobsearch() {
     salary: "",
   });
 
-  const { deepClone, adminEmail, isLogin } = useContext(datacontext); // Assuming `isLogin` is part of the context
+  const { deepClone, adminEmail, isLogin } = useContext(datacontext);
   const router = useRouter();
 
   useEffect(() => {
-    // Redirect to sign-in if user is not logged in
     if (!isLogin) {
-      router.push("/signin"); // Adjust the path if your sign-in page has a different route
+      router.push("/signin");
     }
 
-    // Redirect admin to the admin job management page
     if (adminEmail === "mayanprajapati18@gmail.com") {
       router.push("/admin/jobs");
     }
@@ -68,13 +66,17 @@ export default function Jobsearch() {
       <div className="container mx-auto p-4">
         <div className="flex">
           <FilterComponent handleChange={handleChange} />
-          <div>
+          <div
+            className={`${jobs.length > 0 ? "" : "flex items-center ml-[35%]"}`}
+          >
             {jobs.length > 0 ? (
               filteredData.map((job) => (
                 <JobSearchComponent key={job.id} job={job} />
               ))
             ) : (
-              <p>Loading jobs...</p>
+              <p className="font-medium text-2xl text-center">
+                Loading jobs...
+              </p>
             )}
           </div>
         </div>
