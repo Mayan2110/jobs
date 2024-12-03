@@ -1,13 +1,14 @@
 "use client";
 
 import { useContext, useEffect, useState } from "react";
-import { useRouter } from "next/navigation"; // Import Next.js router
+import { useRouter } from "next/navigation";
+import datacontext from "../context/datacontext";
 import FilterComponent from "../component/common/filterComponent";
 import JobSearchComponent from "../component/common/jobSearchComponent";
-import datacontext from "../context/datacontext";
 
 export default function Jobsearch() {
   const [jobs, setjobs] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState({
     jobType: "",
     location: "",
@@ -36,10 +37,22 @@ export default function Jobsearch() {
   };
 
   useEffect(() => {
-    fetch("https://670d0d07073307b4ee421ac5.mockapi.io/jobsearch")
-      .then((response) => response.json())
-      .then((data) => setjobs(data))
-      .catch((error) => console.error("Error fetching jobs", error));
+    const fetchJobs = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(
+          "https://670d0d07073307b4ee421ac5.mockapi.io/jobsearch"
+        );
+        const data = await response.json();
+        setjobs(data);
+      } catch (error) {
+        console.error("Error fetching jobs", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchJobs();
   }, []);
 
   const filteredData = jobs.filter((j) => {

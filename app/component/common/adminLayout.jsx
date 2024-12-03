@@ -15,6 +15,15 @@ const Adminlayout = ({ children }) => {
 
   const menuItems = [
     {
+      key: "/admin/dashboard",
+      label: (
+        <Link className="text-xl" href={"/admin/dashboard"}>
+          {" "}
+          Dashboard{" "}
+        </Link>
+      ),
+    },
+    {
       key: "/admin/jobs",
       label: (
         <Link className="text-xl" href={"/admin/jobs"}>
