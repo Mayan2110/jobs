@@ -19,7 +19,7 @@ const Adminlayout = ({ children }) => {
       label: (
         <Link className="text-xl" href={"/admin/dashboard"}>
           {" "}
-          Dashboard{" "}
+          dashboard{" "}
         </Link>
       ),
     },
