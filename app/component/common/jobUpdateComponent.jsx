@@ -5,6 +5,7 @@ import UiuxComponent from "./uiuxComponent";
 import Idea from "../icons/idea";
 import { toast } from "react-toastify";
 import Adminlayout from "./adminLayout";
+import { addJobsAPI, editJobsAPI, fetchJobsApiByid } from "@/app/Api";
 
 const JobUpdateComponent = ({ id = "", isLogin }) => {
   const [errors, setErrors] = useState({});
@@ -94,31 +95,36 @@ const JobUpdateComponent = ({ id = "", isLogin }) => {
     try {
       let response;
       if (idAvailable) {
-        response = await fetch(
-          `https://670d0d07073307b4ee421ac5.mockapi.io/login/jobsearch/${id}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-          }
-        );
+        const data = await editJobsAPI({ id, formData });
+        response = data;
+        // response = await fetch(
+        //   `https://670d0d07073307b4ee421ac5.mockapi.io/login/jobsearch/${id}`,
+        //   {
+        //     method: "PUT",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify(formData),
+        //   }
+        // );
       } else {
-        response = await fetch(
-          `https://670d0d07073307b4ee421ac5.mockapi.io/login/jobsearch`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-          }
-        );
+        const data = await addJobsAPI({ formData });
+        response = data;
+
+        // response = await fetch(
+        //   `https://670d0d07073307b4ee421ac5.mockapi.io/login/jobsearch`,
+        //   {
+        //     method: "POST",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify(formData),
+        //   }
+        // );
       }
 
       if (response) {
-        const result = await response.json();
+        const result = response;
         console.log("Job Data Submitted:", result);
         if (idAvailable) {
           toast.success("Job updated successfully!");
@@ -137,13 +143,10 @@ const JobUpdateComponent = ({ id = "", isLogin }) => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(
-        `https://670d0d07073307b4ee421ac5.mockapi.io/login/jobsearch/${id}`
-      );
-      if (response) {
-        const result = await response.json();
+      const response = await fetchJobsApiByid({ id: id });
 
-        setFormData(result);
+      if (response) {
+        setFormData(response);
       } else {
         throw new Error("Failed to fetch job data.");
       }

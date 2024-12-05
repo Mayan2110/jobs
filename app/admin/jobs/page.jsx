@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import Adminlayout from "../../component/common/adminLayout";
+import { fetchJobsApi, JobsDeleteApiByid } from "@/app/Api";
 
 export default function JobManagementPage() {
   const router = useRouter();
@@ -27,10 +28,7 @@ export default function JobManagementPage() {
 
   const fetchJobs = async () => {
     try {
-      const response = await fetch(
-        "https://670d0d07073307b4ee421ac5.mockapi.io/login/jobsearch"
-      );
-      const data = await response.json();
+      const data = await fetchJobsApi();
       setJobs(data);
     } catch (error) {
       console.error("Error fetching jobs:", error);
@@ -38,17 +36,11 @@ export default function JobManagementPage() {
     }
   };
 
- 
   const deleteJob = async (id) => {
     try {
-      const response = await fetch(
-        `https://670d0d07073307b4ee421ac5.mockapi.io/login/jobsearch/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const res = await JobsDeleteApiByid({ id: id });
 
-      if (response.ok) {
+      if (res) {
         toast.success("Job deleted successfully");
         setJobs((prevJobs) => prevJobs.filter((job) => job.id !== id));
       } else {
@@ -60,7 +52,6 @@ export default function JobManagementPage() {
     }
   };
 
-  
   return (
     <Adminlayout>
       <div className="container mx-auto p-4">

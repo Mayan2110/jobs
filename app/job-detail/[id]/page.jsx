@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import JobSearchComponent from "../../component/common/jobSearchComponent";
 import datacontext from "../../context/datacontext";
+import { fetchJobsApi, fetchJobsApiByid } from "@/app/Api";
 
 export default function Detail() {
   const params = useParams();
@@ -14,30 +15,57 @@ export default function Detail() {
   const [relatedJobs, setRelatedJobs] = useState([]);
   const { adminEmail } = useContext(datacontext);
 
+  const fetchData = async () => {
+    try {
+      const response = await fetchJobsApiByid({ id: id });
+
+      if (response) {
+        setJob(response);
+        fetchRelatedJobs(response.location, response.job_type);
+      } else {
+        throw new Error("Failed to fetch job data.");
+      }
+    } catch (error) {
+      console.error("Error fetching job data:", error);
+      toast.error("Failed to fetch job data.");
+    }
+  };
+
   useEffect(() => {
     if (id) {
-      fetch(`https://670d0d07073307b4ee421ac5.mockapi.io/login/jobsearch/${id}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setJob(data);
-          fetchRelatedJobs(data.location, data.job_type);
-        })
+      fetchData();
 
-        .catch((error) => console.error("Error fetching job details", error));
+      // fetch(`https://670d0d07073307b4ee421ac5.mockapi.io/login/jobsearch/${id}`)
+      //   .then((response) => response.json())
+      //   .then((data) => {
+      //     setJob(data);
+      //     fetchRelatedJobs(data.location, data.job_type);
+      //   })
+
+      //   .catch((error) => console.error("Error fetching job details", error));
     }
   }, [id]);
-  const fetchRelatedJobs = (location, jobType) => {
-    fetch(`https://670d0d07073307b4ee421ac5.mockapi.io/jobsearch`)
-      .then((response) => response.json())
-      .then((data) => {
-        const filteredJobs = data.filter(
-          (j) =>
-            (j.location === location || j.job_type === jobType) && j.id !== id
-        );
+  const fetchRelatedJobs = async (location, jobType) => {
+    const response = await fetchJobsApi();
+    if (response) {
+      const filteredJobs = response.filter(
+        (j) =>
+          (j.location === location || j.job_type === jobType) && j.id !== id
+      );
+      setRelatedJobs(filteredJobs);
+    }
 
-        setRelatedJobs(filteredJobs);
-      })
-      .catch((error) => console.error("Error fetching related jobs", error));
+    // fetch(`https://670d0d07073307b4ee421ac5.mockapi.io/jobsearch`)
+    //   .then((response) => response.json())
+    //   .then((data) => {
+
+    //     const filteredJobs = data.filter(
+    //       (j) =>
+    //         (j.location === location || j.job_type === jobType) && j.id !== id
+    //     );
+
+    //   })
+    //   .catch((error) => console.error("Error fetching related jobs", error));
   };
 
   if (!job) return <span>loading...</span>;

@@ -2,24 +2,12 @@
 import Adminlayout from "@/app/component/common/adminLayout";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { fetchJobsApi } from "@/app/Api";
 
 const Dashboard = () => {
   const [jobs, setJobs] = useState([]);
   const [Jobapplications, setJobapplications] = useState([]);
   const router = useRouter();
-
-  const fetchJobs = async () => {
-    try {
-      const response = await fetch(
-        "https://670d0d07073307b4ee421ac5.mockapi.io/login/jobsearch"
-      );
-      const data = await response.json();
-      setJobs(data);
-    } catch (error) {
-      console.error("Error fetching jobs:", error);
-      toast.error("Failed to load job data.");
-    }
-  };
 
   const fetchJobapplication = async () => {
     try {
@@ -33,9 +21,13 @@ const Dashboard = () => {
       toast.error("Failed to load job data.");
     }
   };
+  const fetchJobsData = async () => {
+    const res = await fetchJobsApi();
+    setJobs(res);
+  };
 
   useEffect(() => {
-    fetchJobs();
+    fetchJobsData();
     fetchJobapplication();
   }, []);
 
@@ -68,7 +60,7 @@ const Dashboard = () => {
               >
                 <div className="flex-grow">
                   <div className="text-lg font-semibold text-yellow-500 uppercase mb-2">
-                    Job-Applications
+                    Job-Application
                   </div>
                   <div className="text-2xl font-bold text-gray-800">
                     {Jobapplications?.length ? Jobapplications?.length : 0}

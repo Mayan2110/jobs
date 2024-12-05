@@ -4,6 +4,7 @@ import { Suspense, useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import RectangleImageComponent from "../../../component/common/rectangleImageComponent";
 import Adminlayout from "../../../component/common/adminLayout";
+import { fetchJobsApiByid } from "@/app/Api";
 
 const JobViewData = () => {
   const params = useSearchParams();
@@ -12,15 +13,26 @@ const JobViewData = () => {
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const fetchData = async () => {
+    try {
+      const response = await fetchJobsApiByid({ id: id });
+
+      if (response) {
+        setLoading(false);
+        setJob(response);
+      } else {
+        throw new Error("Failed to fetch job data.");
+      }
+    } catch (error) {
+      console.error("Error fetching job data:", error);
+      toast.error("Failed to fetch job data.");
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (id) {
-      fetch(`https://670d0d07073307b4ee421ac5.mockapi.io/login/jobsearch/${id}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setJob(data);
-        })
-        .catch((error) => console.error("Error fetching job details", error))
-        .finally(() => setLoading(false));
+      fetchData();
     }
   }, [id]);
 
