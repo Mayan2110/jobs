@@ -2,7 +2,7 @@
 import Adminlayout from "@/app/component/common/adminLayout";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { fetchJobsApi } from "@/app/Api";
+import { fetchJobsApi, fetchJobsApplicationApi } from "@/app/Api";
 
 const Dashboard = () => {
   const [jobs, setJobs] = useState([]);
@@ -10,15 +10,9 @@ const Dashboard = () => {
   const router = useRouter();
 
   const fetchJobapplication = async () => {
-    try {
-      const response = await fetch(
-        "https://671a2686acf9aa94f6a95bd1.mockapi.io/Applyform"
-      );
-      const data = await response.json();
-      setJobapplications(data);
-    } catch (error) {
-      console.error("Error fetching job applications:", error);
-      toast.error("Failed to load job data.");
+    const res = await fetchJobsApplicationApi();
+    if (res) {
+      setJobapplications(res);
     }
   };
   const fetchJobsData = async () => {

@@ -83,3 +83,40 @@ export const JobsDeleteApiByid = async ({ id }) => {
 };
 
 // Job add,edit,delete,get API End
+
+// job-application API Start
+
+export const fetchJobsApplicationApi = async () => {
+  try {
+    const response = await fetch(
+      "https://671a2686acf9aa94f6a95bd1.mockapi.io/Applyform"
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching job applications:", error);
+    toast.error("Failed to load job data.");
+  }
+};
+
+export const addJobsApplicationApi = async ({    }) => {
+  try {
+    const response = await fetch(
+      "https://671a2686acf9aa94f6a95bd1.mockapi.io/Applyform",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(combinedData),
+      }
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching job applications:", error);
+    toast.error("Failed to load job data.");
+  }
+};
+
+// job-application API End
