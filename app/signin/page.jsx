@@ -50,7 +50,6 @@ const SignIn = () => {
           `https://670d0d07073307b4ee421ac5.mockapi.io/user?email=${email}`
         );
         const users = res.data;
-
         if (users.length === 0) {
           setErr({ email: "User not found" });
           toast.error("User not foud");

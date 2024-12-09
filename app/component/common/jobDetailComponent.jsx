@@ -174,3 +174,4 @@ const JobDetailComponent = ({ jobDetails }) => {
 };
 
 export default JobDetailComponent;
+

@@ -3,7 +3,10 @@
 export const fetchJobsApi = async () => {
   try {
     const response = await fetch(
-      `https://670d0d07073307b4ee421ac5.mockapi.io/login/jobsearch`
+      `https://670d0d07073307b4ee421ac5.mockapi.io/login/jobsearch`,
+      {
+        method: "GET",
+      }
     );
     const data = await response.json();
     return data;
@@ -16,8 +19,12 @@ export const fetchJobsApi = async () => {
 export const fetchJobsApiByid = async ({ id }) => {
   try {
     const response = await fetch(
-      `https://670d0d07073307b4ee421ac5.mockapi.io/login/jobsearch/${id}`
+      `https://670d0d07073307b4ee421ac5.mockapi.io/login/jobsearch/${id}`,
+      {
+        method: "GET",
+      }
     );
+
     const data = await response.json();
     return data;
   } catch (error) {
@@ -89,7 +96,10 @@ export const JobsDeleteApiByid = async ({ id }) => {
 export const fetchJobsApplicationApi = async () => {
   try {
     const response = await fetch(
-      "https://671a2686acf9aa94f6a95bd1.mockapi.io/Applyform"
+      "https://671a2686acf9aa94f6a95bd1.mockapi.io/Applyform",
+      {
+        method: "GET",
+      }
     );
     const data = await response.json();
     return data;
@@ -99,7 +109,7 @@ export const fetchJobsApplicationApi = async () => {
   }
 };
 
-export const addJobsApplicationApi = async ({    }) => {
+export const addJobsApplicationApi = async ({ combinedData }) => {
   try {
     const response = await fetch(
       "https://671a2686acf9aa94f6a95bd1.mockapi.io/Applyform",

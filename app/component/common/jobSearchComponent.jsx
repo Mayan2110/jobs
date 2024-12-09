@@ -17,7 +17,7 @@ const JobSearchComponent = (props) => {
   }, [isLogin, router]);
 
   return (
-    <div className="w-3/4 p-4">
+    <div className=" p-4 pt-0">
       <div className="bg-white p-4 rounded-lg shadow-md w-[925px] h-[344px]">
         <div className="flex items-center mb-4 gap-4">
           <Image src={Rectangle} alt="Company Logo" />
