@@ -23,14 +23,6 @@ const Signup = () => {
 
   const [err, setErr] = useState({});
   const [showPassword, setShowPassword] = useState(false);
-  // const { isLogin, adminEmail } = useContext(datacontext);
-
-  // useEffect(() => {
-  //   if (isLogin) {
-  //     if (adminEmail) router.replace("/jobs");
-  //     else router.replace("/job-search");
-  //   }
-  // }, []);
 
   useEffect(() => {
     const isLogin = Cookies.get("is_login");
@@ -105,13 +97,6 @@ const Signup = () => {
       toast.warn("Please fix the errors before submitting!");
     }
   };
-
-  // useEffect(() => {
-  //   if (isLogin) {
-  //     if (adminEmail) router.replace("/jobs");
-  //     else router.replace("/job-search");
-  //   }
-  // }, []);
 
   return (
     <div className="bg-gray-200 flex flex-col items-center justify-center min-h-screen pt-9">
@@ -257,14 +242,7 @@ const Signup = () => {
             <label className="block text-gray-700 mb-2" htmlFor="dateOfBirth">
               Date of Birth
             </label>
-            {/* <input
-              type="date"
-              id="dateOfBirth"
-              name="dateOfBirth"
-              value={userdata.dateOfBirth}
-              onChange={handleInputChange}
-              required
-              /> */}
+
             <DatePicker
               className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
               selected={userdata.dateOfBirth}

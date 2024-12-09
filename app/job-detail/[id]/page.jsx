@@ -34,15 +34,6 @@ export default function Detail() {
   useEffect(() => {
     if (id) {
       fetchData();
-
-      // fetch(`https://670d0d07073307b4ee421ac5.mockapi.io/login/jobsearch/${id}`)
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     setJob(data);
-      //     fetchRelatedJobs(data.location, data.job_type);
-      //   })
-
-      //   .catch((error) => console.error("Error fetching job details", error));
     }
   }, [id]);
   const fetchRelatedJobs = async (location, jobType) => {
@@ -54,18 +45,6 @@ export default function Detail() {
       );
       setRelatedJobs(filteredJobs);
     }
-
-    // fetch(`https://670d0d07073307b4ee421ac5.mockapi.io/jobsearch`)
-    //   .then((response) => response.json())
-    //   .then((data) => {
-
-    //     const filteredJobs = data.filter(
-    //       (j) =>
-    //         (j.location === location || j.job_type === jobType) && j.id !== id
-    //     );
-
-    //   })
-    //   .catch((error) => console.error("Error fetching related jobs", error));
   };
 
   if (!job) return <span>loading...</span>;

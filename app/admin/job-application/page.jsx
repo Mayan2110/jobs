@@ -30,16 +30,6 @@ export default function Page() {
     if (res) {
       setJobapplications(res);
     }
-    // try {
-    //   const response = await fetch(
-    //     "https://671a2686acf9aa94f6a95bd1.mockapi.io/Applyform"
-    //   );
-    //   const data = await response.json();
-    //   setJobapplications(data);
-    // } catch (error) {
-    //   console.error("Error fetching jobs:", error);
-    //   toast.error("Failed to load job data.");
-    // }
   };
 
   const handlePageChange = (page) => {

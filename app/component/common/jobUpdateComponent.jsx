@@ -97,30 +97,10 @@ const JobUpdateComponent = ({ id = "", isLogin }) => {
       if (idAvailable) {
         const data = await editJobsAPI({ id, formData });
         response = data;
-        // response = await fetch(
-        //   `https://670d0d07073307b4ee421ac5.mockapi.io/login/jobsearch/${id}`,
-        //   {
-        //     method: "PUT",
-        //     headers: {
-        //       "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify(formData),
-        //   }
-        // );
+      
       } else {
         const data = await addJobsAPI({ formData });
         response = data;
-
-        // response = await fetch(
-        //   `https://670d0d07073307b4ee421ac5.mockapi.io/login/jobsearch`,
-        //   {
-        //     method: "POST",
-        //     headers: {
-        //       "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify(formData),
-        //   }
-        // );
       }
 
       if (response) {

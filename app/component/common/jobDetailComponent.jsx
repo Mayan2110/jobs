@@ -70,7 +70,6 @@ const JobDetailComponent = ({ jobDetails }) => {
     const res = await addJobsApplicationApi({ combinedData });
 
     if (res) {
-      console.log("res: ", res);
       setJob(res);
       setLoading(false);
       toast.success("Application submitted successfully!");
@@ -79,24 +78,6 @@ const JobDetailComponent = ({ jobDetails }) => {
       setLoading(false);
     }
 
-    // fetch("https://671a2686acf9aa94f6a95bd1.mockapi.io/Applyform", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(combinedData),
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log("Fetched Job Data:", data);
-    //     setJob(data);
-    //     setLoading(false);
-    //     toast.success("Application submitted successfully!");
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error fetching job details:", error);
-    //     setLoading(false);
-    //   });
   };
   if (loading) return <p>Loading...</p>;
 

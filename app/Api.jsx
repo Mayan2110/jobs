@@ -89,7 +89,7 @@ export const JobsDeleteApiByid = async ({ id }) => {
   }
 };
 
-// Job add,edit,delete,get API End
+
 
 // job-application API Start
 
